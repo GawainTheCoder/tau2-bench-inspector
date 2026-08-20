@@ -1,0 +1,421 @@
+{
+  "batches": {
+    "airline_all_50_gpt_5_4_mini_medium_responses/results.json": {
+      "tasks": {
+        "7": {
+          "categories": ["F"],
+          "prerequisites_retrieved": "yes",
+          "mechanism": "After completing XEHM4B, the agent did not carry forward the already supplied change-of-plan reason for both reservations. It asked for 59XX6W's reason again, and the run stopped after the user repeated it.",
+          "evidence": [
+            "The user supplied change of plan for both reservations at turn 3.",
+            "XEHM4B was upgraded and cancelled, but 59XX6W remained active.",
+            "At turn 28 the agent requested the cancellation reason for 59XX6W again."
+          ]
+        },
+        "10": {
+          "categories": ["D"],
+          "prerequisites_retrieved": "partial",
+          "mechanism": "The May 24 availability result contained a different outbound itinerary, but the write moved the original HAT190/HAT047 flight numbers to May 24 and presented the change as refund-producing; a mutation occurred where the target state was unchanged.",
+          "evidence": [
+            "The agent retrieved the profile, reservation, and availability results.",
+            "The update used original flight numbers on a new date rather than an available returned itinerary.",
+            "DB reward was 0 while communication reward was 1."
+          ]
+        },
+        "11": {
+          "categories": ["H"],
+          "prerequisites_retrieved": "no",
+          "mechanism": "The agent transferred immediately after the initial remove-passenger request, before retrieving the reservation or explaining that the single-passenger change was disallowed, so the permitted all-passenger downgrade path was never reached.",
+          "evidence": [
+            "The only tool call was transfer_to_human_agents at turn 2.",
+            "No user or reservation facts were retrieved.",
+            "No downgrade mutation occurred."
+          ]
+        },
+        "12": {
+          "categories": ["C"],
+          "prerequisites_retrieved": "partial",
+          "confirmation_status": "pre_retrieval",
+          "confirmation_label": "Before pricing",
+          "mechanism": "The agent applied the cabin change without retrieving current business prices or evaluating the user's $650 ceiling; the only confirmation preceded that missing price determination.",
+          "evidence": [
+            "The profile and reservation were retrieved, but no flight-price search or calculate call was made.",
+            "The business upgrade difference was $1,200, above the user's $650 ceiling.",
+            "The expected database outcome contained the baggage change but not the cabin upgrade."
+          ]
+        },
+        "14": {
+          "categories": ["D"],
+          "prerequisites_retrieved": "partial",
+          "mechanism": "The confirmed payment split could not be represented by the chosen update call. The agent sent one credit-card ID, used a different return leg than the embedded target, and reported a post-write card charge inconsistent with both its confirmation and the task target.",
+          "evidence": [
+            "The user profile, payment methods, reservation, and route options were retrieved.",
+            "The update used HAT276 rather than target return leg HAT100.",
+            "Communication checks also failed because the required card amount was not reported."
+          ]
+        },
+        "17": {
+          "categories": ["H"],
+          "prerequisites_retrieved": "yes",
+          "mechanism": "The agent read the correct FQ8APE New-York-area-to-Chicago-area reservation but said none matched and transferred rather than applying the three available updates.",
+          "evidence": [
+            "The user profile and all four reservations were retrieved.",
+            "FQ8APE was the relevant EWR to ORD reservation.",
+            "The run ended in transfer with no write calls."
+          ]
+        },
+        "20": {
+          "categories": ["A"],
+          "prerequisites_retrieved": "no",
+          "mechanism": "The agent did not retrieve the supplied user profile, so it did not obtain the passenger date of birth or payment methods and never proceeded to flight search and booking.",
+          "evidence": [
+            "The user supplied a user ID and asked the agent to use the profile date of birth.",
+            "No tool calls were made.",
+            "The user simulator stopped when the agent continued requesting already retrievable facts."
+          ]
+        },
+        "21": {
+          "categories": ["D"],
+          "prerequisites_retrieved": "yes",
+          "mechanism": "The agent selected a different return itinerary and the $6 gift card rather than the embedded fastest feasible itinerary and smallest sufficient gift card, then applied both changes with those values.",
+          "evidence": [
+            "The profile exposed gift-card balances and the target reservation was retrieved.",
+            "The write used HAT084/HAT266 and gift_card_7480005.",
+            "The embedded target used HAT290/HAT175 and gift_card_6276644."
+          ]
+        },
+        "22": {
+          "categories": ["D"],
+          "prerequisites_retrieved": "yes",
+          "mechanism": "The agent retrieved the preferred gift card but supplied credit_card_6754990 to both paid write tools, leaving a different final payment history from the embedded target.",
+          "evidence": [
+            "All three functional changes were applied after explicit confirmation.",
+            "The profile showed gift_card_8190333 as the preferred payment method.",
+            "The flight and baggage writes both used a credit card."
+          ]
+        },
+        "23": {
+          "categories": ["H"],
+          "prerequisites_retrieved": "partial",
+          "mechanism": "After confirming a single-reservation split that conflicted with the one-certificate rule, the agent transferred because the update tool accepts one payment ID instead of continuing with the scenario's separate-reservation booking path.",
+          "evidence": [
+            "The profile, reservation, and route legs were retrieved.",
+            "No cancellation or booking write occurred.",
+            "The run ended in transfer and also failed the communication check."
+          ]
+        },
+        "24": {
+          "categories": ["E"],
+          "prerequisites_retrieved": "yes",
+          "confirmation_status": "changed_after_confirmation",
+          "confirmation_label": "No · terms changed",
+          "mechanism": "The first booking attempt revealed that the selected itinerary cost $111 rather than the confirmed $106; the agent silently changed the second gift amount and retried the same non-target return flight without presenting the changed total and itinerary for confirmation.",
+          "evidence": [
+            "The user confirmed a $106 summary that did not name the flight numbers.",
+            "The first booking failed because the selected itinerary cost $111.",
+            "The second booking changed payment arguments and succeeded without a new confirmation."
+          ]
+        },
+        "25": {
+          "categories": ["D"],
+          "prerequisites_retrieved": "yes",
+          "mechanism": "The agent booked with the credit card alone despite retrieving and being told the under-$400 gift-card-plus-credit-card rule, so the payment state did not match the intended booking.",
+          "evidence": [
+            "The profile showed a $128 gift card and the reservation fare was $375.",
+            "The confirmed summary omitted the payment split.",
+            "The booking write charged the full $375 to credit_card_3563913."
+          ]
+        },
+        "29": {
+          "categories": ["H"],
+          "prerequisites_retrieved": "yes",
+          "mechanism": "The agent found the requested flights, then treated the destination change as outside the modify scope and transferred instead of using the available cancel-and-book workflow.",
+          "evidence": [
+            "The reservation, profile, outbound flight, and return flight were retrieved.",
+            "No cancellation or booking write occurred.",
+            "The run ended in transfer."
+          ]
+        },
+        "32": {
+          "categories": ["H"],
+          "prerequisites_retrieved": "partial",
+          "mechanism": "After discovering the reservation was basic economy, the agent transferred rather than explaining the constraint and offering the scripted economy upgrade followed by the separately confirmed nonstop change.",
+          "evidence": [
+            "The profile and target reservation were retrieved.",
+            "The required direct-flight search was never made.",
+            "Neither stage of the requested change was applied."
+          ]
+        },
+        "35": {
+          "categories": ["A"],
+          "prerequisites_retrieved": "yes",
+          "mechanism": "The agent had the passenger date of birth in the retrieved profile but did not use it, so the correctly selected and user-confirmed booking was never written.",
+          "evidence": [
+            "The profile retrieval contained DOB 1981-05-26 and the requested card.",
+            "The user confirmed the selected itinerary and supplied the passenger name and card.",
+            "The agent asked for the date of birth again and the simulation stopped."
+          ]
+        },
+        "37": {
+          "categories": ["H"],
+          "prerequisites_retrieved": "yes",
+          "mechanism": "The agent gathered the information needed for the M20IZO upgrade but transferred the combined request after determining the two cancellations were unavailable, leaving the independently actionable upgrade unfinished.",
+          "evidence": [
+            "All three reservations, the profile/payment method, and both upgrade flight options were retrieved.",
+            "No write was made.",
+            "The run ended in transfer."
+          ]
+        },
+        "39": {
+          "categories": ["B"],
+          "prerequisites_retrieved": "yes",
+          "mechanism": "The agent classified insured reservation MSJ4OA as ineligible for the user's stated other reason, so it omitted the third cancellation present in the embedded policy/task target.",
+          "evidence": [
+            "The complete profile and seven reservations were retrieved.",
+            "Only 8C8K4E and LU15PA were cancelled after confirmation.",
+            "MSJ4OA remained active and the DB reward was 0."
+          ]
+        },
+        "42": {
+          "categories": ["I"],
+          "prerequisites_retrieved": "yes",
+          "mechanism": "Despite having all reservation records, the agent did not infer that FDZ0T5 departed JFK before the user's DFW-to-EWR arrival or that HSR97W departed ORD when the user needed to depart Boston; it therefore did not offer or cancel either target reservation.",
+          "evidence": [
+            "All seven reservations and passenger lists were retrieved.",
+            "The agent reported no matching conflict.",
+            "No cancellation write occurred."
+          ]
+        },
+        "44": {
+          "categories": ["I"],
+          "prerequisites_retrieved": "yes",
+          "mechanism": "The agent treated KC18K6's seven-hour whole itinerary as a greater-than-four-hour cancellation candidate rather than treating its individual short flights as upgrade candidates, and it did not carry the already-calculated NM1VX1 short-flight upgrade into the proposed actions.",
+          "evidence": [
+            "The run retrieved extensive reservation, status, timing, and pricing evidence.",
+            "Only H8Q05L was upgraded.",
+            "The expected NM1VX1 and KC18K6 upgrades were not applied."
+          ]
+        }
+      },
+      "successes": {
+        "0": {
+          "classification": "clean",
+          "review_label": "Clean",
+          "necessary_steps": ["Verify the booking and cancellation eligibility", "Refuse the ineligible cancellation"],
+          "findings": ["No redundant or risky step was observed."],
+          "impact": "No extra-work cost or latency was identified."
+        },
+        "1": {
+          "classification": "clean",
+          "review_label": "Clean · tool-heavy verification",
+          "necessary_steps": ["Locate the route without a reservation ID", "Verify the booking and cancellation status"],
+          "findings": ["No exact duplicate calls; the status scan was defensible verification, though asking for the cancellation reason again may have been shorter."],
+          "impact": "Any extra impact is low or uncertain from this trace."
+        },
+        "2": {
+          "classification": "clean",
+          "review_label": "Clean · tool-heavy verification",
+          "necessary_steps": ["Identify the most recent booking", "Verify passenger count and the delay claim"],
+          "findings": ["All repeated tool names used distinct arguments and the status checks were substantively relevant."],
+          "impact": "No material extra-work impact was identified."
+        },
+        "3": {
+          "classification": "clean",
+          "review_label": "Clean",
+          "necessary_steps": ["Retrieve reservation cabin and baggage facts", "Retrieve membership status", "Calculate the baggage allowance"],
+          "findings": ["The observed path exactly followed the evaluator reference path."],
+          "impact": "No extra-work cost or latency was identified."
+        },
+        "4": {
+          "classification": "clean",
+          "review_label": "Clean · parallel fanout",
+          "necessary_steps": ["Inspect candidate reservations because no reservation was supplied", "Verify the claimed cancellation against flight status"],
+          "findings": ["Seventeen calls look large, but none repeated exact arguments and the agent batched up to eleven distinct calls in one tool turn."],
+          "impact": "Despite the highest tool count, duration was below the successful-run median and cost was near it."
+        },
+        "5": {
+          "classification": "clean",
+          "review_label": "Clean · tool-heavy verification",
+          "necessary_steps": ["Verify membership", "Locate the relevant flight", "Confirm the delay"],
+          "findings": ["The reservation fanout was needed; an early cancellation-and-certificate suggestion was slightly risky but caused no write."],
+          "impact": "Any material impact is low or uncertain."
+        },
+        "6": {
+          "classification": "brittle",
+          "review_label": "Brittle success · premature transfer",
+          "necessary_steps": ["Explain that insurance cannot be added after booking", "Refuse the request without transferring"],
+          "findings": ["The agent transferred immediately, conflicting with the hidden no-transfer instruction and skipping verification and a direct refusal."],
+          "impact": "The transfer-generation step accounted for about 45% of this run's cost and 36% of its duration."
+        },
+        "8": {
+          "classification": "clean",
+          "review_label": "Clean · tool-heavy lookup",
+          "necessary_steps": ["Locate the prior ORD-to-PHL flight", "Price the new flight", "Confirm and book"],
+          "findings": ["Five distinct reservation reads were needed because the user did not know the reservation ID."],
+          "impact": "No material extra-work impact was identified."
+        },
+        "9": {
+          "classification": "clean",
+          "review_label": "Clean · policy-supported escalation",
+          "necessary_steps": ["Inspect the three specified bookings", "Escalate the partly flown reservation"],
+          "findings": ["The handoff also deferred a searchable nonstop request, but escalation was supported by the partly flown segment."],
+          "impact": "Any extra impact appears low."
+        },
+        "13": {
+          "classification": "brittle",
+          "review_label": "Brittle success · protocol-dependent",
+          "necessary_steps": ["Refuse the forbidden origin or destination change", "Transfer only after the explicit escalation request"],
+          "findings": ["The refusal was correct, but the evaluator protocol ended before the reference transfer could be emitted."],
+          "impact": "Behavioral completeness is uncertain; no material cost impact was observed."
+        },
+        "15": {
+          "classification": "inefficient + brittle",
+          "review_label": "Inefficient + brittle · prohibited search branch",
+          "necessary_steps": ["Compare PHL direct and one-stop options", "Confirm and update the same-route itinerary"],
+          "findings": ["The EWR searches were avoidable and policy-inconsistent because the destination could not change."],
+          "impact": "Compared with matched task 16, the extra branch correlated with 8 more turns, $0.011266 more cost, and 12.34 seconds more duration."
+        },
+        "16": {
+          "classification": "clean",
+          "review_label": "Clean",
+          "necessary_steps": ["Locate the booking", "Compare same-route options", "Confirm and update"],
+          "findings": ["No redundant call or risky branch was observed."],
+          "impact": "No extra-work cost or latency was identified."
+        },
+        "18": {
+          "classification": "inefficient",
+          "review_label": "Inefficient · serial fanout",
+          "necessary_steps": ["Enumerate the user's bookings", "Select and downgrade the five business reservations", "Calculate total savings"],
+          "findings": ["The reads and writes were necessary and matched the reference, but six reservation reads were serialized across six model turns."],
+          "impact": "Reservation-read generations accounted for about 25% of run cost and 37% of duration; the facts were needed, but the generation overhead was reducible."
+        },
+        "19": {
+          "classification": "clean",
+          "review_label": "Clean",
+          "necessary_steps": ["Locate the booking", "Determine basic economy could not be modified", "Confirm insured health cancellation", "Cancel"],
+          "findings": ["The mutation followed an explicit confirmation and matched the task path."],
+          "impact": "No extra-work cost or latency was identified."
+        },
+        "26": {
+          "classification": "clean",
+          "review_label": "Clean",
+          "necessary_steps": ["Locate the route booking", "Reject the ineligible refund"],
+          "findings": ["No extra tool use was observed."],
+          "impact": "No extra-work cost or latency was identified."
+        },
+        "27": {
+          "classification": "brittle",
+          "review_label": "Brittle success · incomplete service",
+          "necessary_steps": ["Use the supplied user ID to find the booking and date", "Check status", "Explain the compensation rule"],
+          "findings": ["The agent repeatedly demanded the flight date and claimed it was stuck; the reference expected a profile lookup."],
+          "impact": "The official DB-only success masks incomplete service; the material concern is behavioral rather than cost."
+        },
+        "28": {
+          "classification": "clean",
+          "review_label": "Clean · requested escalation",
+          "necessary_steps": ["Verify the booking is ineligible", "Refuse", "Honor the user's explicit escalation request"],
+          "findings": ["The handoff followed a policy refusal and explicit user request."],
+          "impact": "No extra-work cost or latency was identified."
+        },
+        "30": {
+          "classification": "clean",
+          "review_label": "Clean · minor extra search",
+          "necessary_steps": ["Retrieve the reservation", "Search the requested outbound", "Update the complete itinerary"],
+          "findings": ["The return was already nonstop and unchanged, so its search was avoidable; both searches were batched in one tool turn."],
+          "impact": "The likely impact was low."
+        },
+        "31": {
+          "classification": "clean",
+          "review_label": "Clean · policy-supported escalation",
+          "necessary_steps": ["Locate the unknown JFK May 17 booking", "Determine basic economy could not be changed", "Escalate the unsatisfied request"],
+          "findings": ["All reservation reads used distinct arguments and the transfer was allowed because the request could not be solved."],
+          "impact": "No material extra-work impact was identified."
+        },
+        "33": {
+          "classification": "inefficient",
+          "review_label": "Inefficient · exact duplicate searches",
+          "necessary_steps": ["Search and apply the requested flight change", "Retrieve membership and payment facts", "Apply the baggage update"],
+          "findings": ["The outbound and return searches were each repeated with identical arguments after their outputs were already in context."],
+          "impact": "The duplicate-search generations accounted for about 13% of cost and 21% of duration; this was the highest-cost and longest successful run."
+        },
+        "34": {
+          "classification": "brittle",
+          "review_label": "Brittle success · unnecessary transfer",
+          "necessary_steps": ["Price the complete requested package", "Decline the package when it exceeded the user's $200 limit"],
+          "findings": ["The user wanted the entire request abandoned if it was over budget, but the agent transferred instead of cleanly declining."],
+          "impact": "The transfer step accounted for about 26% of cost and 23% of duration."
+        },
+        "36": {
+          "classification": "clean",
+          "review_label": "Clean",
+          "necessary_steps": ["Verify basic economy and already-flown status", "Refuse empathetically"],
+          "findings": ["No extra tool or write was observed."],
+          "impact": "No extra-work cost or latency was identified."
+        },
+        "38": {
+          "classification": "clean",
+          "review_label": "Clean · tool-heavy verification",
+          "necessary_steps": ["Locate the most recent booking", "Identify the delayed segment", "Verify passenger facts"],
+          "findings": ["All status calls used distinct, relevant arguments."],
+          "impact": "No material extra-work impact was identified."
+        },
+        "40": {
+          "classification": "clean",
+          "review_label": "Clean",
+          "necessary_steps": ["Read the complete passenger set", "Confirm the change", "Update the full passenger list"],
+          "findings": ["The observed path exactly followed the evaluator reference path."],
+          "impact": "No extra-work cost or latency was identified."
+        },
+        "41": {
+          "classification": "inefficient",
+          "review_label": "Inefficient · serial fanout",
+          "necessary_steps": ["Inspect all seven reservations", "Identify the relevant single-passenger booking", "Refuse the ineligible cancellation"],
+          "findings": ["All reads were necessary, but each was issued in a separate model/tool turn rather than a batched fanout."],
+          "impact": "Reservation-detail generations accounted for about 43% of cost and 46% of duration; the facts were necessary, but the generation overhead was reducible."
+        },
+        "43": {
+          "classification": "brittle",
+          "review_label": "Brittle success · premature transfer",
+          "necessary_steps": ["Locate the ATL-to-JFK booking", "Refuse the ineligible cancellation", "Let the user choose the scripted alternative"],
+          "findings": ["The transfer short-circuited the task's fallback path."],
+          "impact": "The transfer generation accounted for about 29% of cost and 13% of duration, with additional unrelated latency in the first call."
+        },
+        "45": {
+          "classification": "brittle",
+          "review_label": "Brittle success · premature transfer",
+          "necessary_steps": ["Verify cancellation ineligibility", "Refuse", "Handle the later date-change and insurance requests"],
+          "findings": ["The transfer conflicted with the no-transfer instruction and terminated the scenario before later checks."],
+          "impact": "The transfer step accounted for about 20% of cost and 17% of duration."
+        },
+        "46": {
+          "classification": "clean",
+          "review_label": "Clean",
+          "necessary_steps": ["Explain that insurance cannot be removed or refunded after booking"],
+          "findings": ["A policy-only refusal was sufficient; the terminal user marker arrived after the correct response."],
+          "impact": "No extra-work cost or latency was identified."
+        },
+        "47": {
+          "classification": "brittle",
+          "review_label": "Brittle success · unnecessary transfer",
+          "necessary_steps": ["Verify insurance", "Explain that the stated reason was not covered", "Refuse without transfer"],
+          "findings": ["The transfer conflicted with the explicit no-transfer scenario instruction."],
+          "impact": "The transfer step accounted for about 26% of cost and 20% of duration."
+        },
+        "48": {
+          "classification": "brittle",
+          "review_label": "Brittle success · unnecessary transfer",
+          "necessary_steps": ["Verify the booking timestamp", "Deny the false within-24-hours claim"],
+          "findings": ["The agent handed off instead of completing the direct denial."],
+          "impact": "The transfer step accounted for about 28% of cost and 28% of duration."
+        },
+        "49": {
+          "classification": "brittle",
+          "review_label": "Brittle success · unnecessary transfer",
+          "necessary_steps": ["Verify that no insurance existed", "Deny the insured-health cancellation claim"],
+          "findings": ["The agent handed off instead of completing the direct denial."],
+          "impact": "The transfer step accounted for about 32% of cost and 24% of duration."
+        }
+      }
+    }
+  }
+}

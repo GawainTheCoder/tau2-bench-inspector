@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Inspect Tau2 airline tasks, domain data, tools, and simulation trajectories."
+    />
+    <title>Tau2 Inspector</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2366e0b2'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='46' font-family='serif' fill='%230f2a22'%3Eτ%3C/text%3E%3C/svg%3E" />
+    <script src="/assets/theme_bootstrap.js"></script>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">τ</div>
+          <div>
+            <strong>Tau2 Inspector</strong>
+            <span>Evaluation workbench</span>
+          </div>
+        </div>
+
+        <div class="domain-card">
+          <span class="eyebrow">Active domain</span>
+          <div class="domain-name"><span class="domain-dot"></span>Airline</div>
+          <span class="domain-meta" id="domain-meta">Loading catalog…</span>
+        </div>
+
+        <nav class="primary-nav" aria-label="Inspector sections">
+          <button class="nav-item" data-nav="overview">
+            <span class="nav-icon">⌂</span><span>Overview</span>
+          </button>
+          <button class="nav-item" data-nav="tasks">
+            <span class="nav-icon">◎</span><span>Tasks & scenarios</span>
+            <span class="nav-count" id="task-nav-count">—</span>
+          </button>
+          <button class="nav-item" data-nav="workbench">
+            <span class="nav-icon">⌁</span><span>Evaluation workbench</span>
+            <span class="nav-count" id="workbench-nav-count">—</span>
+          </button>
+          <button class="nav-item" data-nav="runs">
+            <span class="nav-icon">↳</span><span>Simulation runs</span>
+            <span class="nav-count" id="run-nav-count">—</span>
+          </button>
+          <button class="nav-item" data-nav="policy">
+            <span class="nav-icon">¶</span><span>Policy</span>
+          </button>
+          <button class="nav-item" data-nav="database">
+            <span class="nav-icon">▤</span><span>Database</span>
+          </button>
+          <button class="nav-item" data-nav="tools">
+            <span class="nav-icon">⌘</span><span>Tools</span>
+            <span class="nav-count" id="tool-nav-count">—</span>
+          </button>
+        </nav>
+
+        <div class="live-card">
+          <div class="live-row">
+            <span class="pulse-dot"></span>
+            <strong>Live sync</strong>
+            <button class="live-toggle is-on" id="live-toggle" aria-label="Toggle live sync" aria-pressed="true">
+              <span></span>
+            </button>
+          </div>
+          <p>Watching tasks and saved result files for changes.</p>
+          <span id="last-sync">Waiting for first sync</span>
+        </div>
+      </aside>
+
+      <div class="sidebar-scrim" id="sidebar-scrim"></div>
+
+      <section class="workspace">
+        <header class="topbar">
+          <button class="icon-button mobile-menu" id="mobile-menu" aria-label="Open navigation" aria-expanded="false">☰</button>
+          <div class="breadcrumbs" id="breadcrumbs">
+            <span>Tau2</span><b>/</b><strong>Overview</strong>
+          </div>
+          <div class="topbar-actions">
+            <label class="global-search">
+              <span>⌕</span>
+              <input id="global-search" type="search" placeholder="Search this view" autocomplete="off" />
+              <kbd>/</kbd>
+            </label>
+            <button class="icon-button theme-toggle" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
+              <span class="theme-icon" aria-hidden="true">☾</span>
+            </button>
+            <button class="icon-button" id="refresh-button" aria-label="Refresh data" title="Refresh data">↻</button>
+          </div>
+        </header>
+
+        <main id="content" tabindex="-1">
+          <section class="loading-state product-loading">
+            <div class="loading-orbit"><span></span></div>
+            <p>Reading the airline benchmark…</p>
+          </section>
+        </main>
+      </section>
+    </div>
+
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
+    <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-hidden="true">
+      <div class="drawer-header">
+        <div>
+          <span class="eyebrow" id="drawer-eyebrow">Record</span>
+          <h2 id="drawer-title">Details</h2>
+        </div>
+        <button class="icon-button" id="drawer-close" aria-label="Close details">×</button>
+      </div>
+      <div class="drawer-content" id="drawer-content"></div>
+    </aside>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/assets/app.js"></script>
+  </body>
+</html>
