@@ -151,6 +151,8 @@ celerybeat.pid
 
 # Environments
 .env
+.env.*
+!.env.example
 .venv
 env/
 venv/
@@ -224,3 +226,13 @@ data/simulations/.credentials/
 
 # Cursor IDE
 .cursor/
+
+# Local Tau2 Inspector verification artifacts
+.playwright-cli/
+output/
+
+# Private key and certificate bundles
+*.key
+*.pem
+*.p12
+*.pfx

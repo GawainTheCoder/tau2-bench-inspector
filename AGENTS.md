@@ -203,3 +203,30 @@ test: add integration tests for retail domain
 - **Pre-commit hook**: Runs `make check-all` (ruff lint + format). Fix any issues before committing.
 - **Notebooks**: Excluded from ruff (`*.ipynb` in pyproject.toml exclude).
 - **`banking_knowledge` domain**: Uses `--retrieval-config` to specify how the agent accesses the knowledge base. If omitted, defaults to `alltools` (BM25 + dense + shell; see `src/tau2/knowledge/README.md`). For offline-only, use e.g. `bm25`. Other offline configs: `no_knowledge`, `full_kb`, `golden_retrieval`, `bm25_grep`, `grep_only`. `openai_embeddings*` and default `alltools` require `OPENAI_API_KEY`. `qwen_embeddings*` and `alltools-qwen` require `OPENROUTER_API_KEY` (included in `.env.example`). `*_reranker` configs additionally require `OPENAI_API_KEY` for the LLM reranker. `terminal_use*`, `alltools`, and `alltools-qwen` require `sandbox-runtime`: install via `npm install -g @anthropic-ai/sandbox-runtime@0.0.23` **AND** the system tools it shells out to (`apt install ripgrep bubblewrap socat` on Linux, `brew install ripgrep` on macOS) — `SandboxManager` raises `SandboxRuntimeError` at construction time if any are missing. Embedding cache lives in `data/.embeddings_cache` (gitignored). See `src/tau2/knowledge/README.md` for full details.
+
+## Tau2 Inspector Extension
+
+This fork adds a local airline-domain Inspector and an evidence-backed Evaluation
+Workbench. Read `docs/TAU2_INSPECTOR_CONTEXT.md` before changing model routing,
+the viewer, benchmark tasks, or workbench annotations.
+
+- Preserve the upstream task catalog, policy, databases, and evaluation criteria
+  when reporting a canonical Tau2 result. Put clarified or experimental tasks in
+  a separately named and versioned task set.
+- Treat `data/simulations/`, `.env`, provider payloads, browser artifacts, and
+  generated output as private local data. Follow `SECURITY.md` before publishing.
+- The project convention for the documented airline cohort is
+  `gpt-5.4-mini` through the Responses API with `reasoning_effort=medium`; the
+  upstream CLI defaults in `src/tau2/config.py` intentionally remain unchanged.
+- Do not describe the workbench's review labels as official Tau2 metrics or use
+  “root cause” where the evidence only establishes an observed mechanism.
+- Keep the Inspector loopback-only unless the operator explicitly accepts the
+  network-exposure warning. It has no authentication layer.
+- Verify Inspector changes with:
+
+  ```bash
+  uv run --frozen python -m unittest viewer.test_server
+  node --check viewer/static/app.js
+  node --check viewer/static/theme_bootstrap.js
+  node --test viewer/test_result_utils.mjs
+  ```
