@@ -8,6 +8,14 @@
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/posts/sierra_last-year-we-introduced-%F0%9D%9C%8F-bench-a-benchmark-activity-7338229693898231809-F8L4?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAdc8goBmhEsiEo1_t_XSJbAnY4_zMfAWcE)
 [![Leaderboard](https://img.shields.io/badge/🏆_Live_Leaderboard-taubench.com-brightgreen?style=flat)](https://taubench.com)
 
+> [!NOTE]
+> This private derivative adds the local **Tau2 Inspector**, OpenAI Responses
+> transport for `gpt-5.4-mini` and `gpt-5.6-luna`, and an evidence-backed
+> Evaluation Workbench for the 50-task airline cohort. Start with the
+> [complete project context](docs/TAU2_INSPECTOR_CONTEXT.md),
+> [security policy](SECURITY.md), and [Inspector guide](viewer/README.md).
+> The original Sierra repository remains the upstream source of the benchmark.
+
 <div align="center">
 <img src="figs/traj.png" width="95%" alt="Trajectory">
 </div>
