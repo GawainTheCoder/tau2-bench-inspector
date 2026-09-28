@@ -1,3 +1,5 @@
+import os
+
 import pytest
 from litellm.types.llms.openai import ResponsesAPIResponse
 
@@ -53,12 +55,20 @@ def tool_call_messages() -> list[Message]:
     return messages
 
 
+@pytest.mark.skipif(
+    os.getenv("TAU2_RUN_LIVE_LLM_TESTS") != "1",
+    reason="Live provider test requires an explicit paid-run opt-in",
+)
 def test_generate_no_tool_call(model: str, messages: list[Message]):
     response = generate(model, messages)
     assert isinstance(response, AssistantMessage)
     assert response.content is not None
 
 
+@pytest.mark.skipif(
+    os.getenv("TAU2_RUN_LIVE_LLM_TESTS") != "1",
+    reason="Live provider test requires an explicit paid-run opt-in",
+)
 def test_generate_tool_call(model: str, tool_call_messages: list[Message], tool: Tool):
     response = generate(model, tool_call_messages, tools=[tool])
     assert isinstance(response, AssistantMessage)

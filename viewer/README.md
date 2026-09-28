@@ -59,3 +59,7 @@ node --check viewer/static/app.js
 node --check viewer/static/theme_bootstrap.js
 node --test viewer/test_result_utils.mjs
 ```
+
+On a fresh clone, tests that require saved simulation runs are skipped because
+raw results are intentionally excluded from Git. They run when those local
+artifacts are present.

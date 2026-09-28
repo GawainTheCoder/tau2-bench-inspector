@@ -78,6 +78,7 @@ Before every push:
 
 ## Reporting a vulnerability
 
-Keep this repository private while it contains unpublished evaluation analysis.
+Keep unpublished evaluation analysis out of commits and review derived results
+before publishing them.
 Report a suspected credential or data exposure privately to the repository owner;
 do not open a public issue containing secrets or raw trajectories.

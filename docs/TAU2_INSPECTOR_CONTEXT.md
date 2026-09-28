@@ -11,7 +11,7 @@ silently conflate.
 
 - Upstream: `sierra-research/tau2-bench`
 - Upstream baseline: `a2c024725189473d2d7cea3a5cfdbcc67478e41f`
-- Working branch: `inspector-workbench`
+- Current default branch: `main`
 - Domain used for the current investigation: `airline`
 - Python: 3.12.5
 - Local `uv` used for verification: 0.6.8

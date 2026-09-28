@@ -9,7 +9,7 @@
 [![Leaderboard](https://img.shields.io/badge/🏆_Live_Leaderboard-taubench.com-brightgreen?style=flat)](https://taubench.com)
 
 > [!NOTE]
-> This private derivative adds the local **Tau2 Inspector**, OpenAI Responses
+> This independent derivative adds the local **Tau2 Inspector**, OpenAI Responses
 > transport for `gpt-5.4-mini` and `gpt-5.6-luna`, and an evidence-backed
 > Evaluation Workbench for the 50-task airline cohort. Start with the
 > [complete project context](docs/TAU2_INSPECTOR_CONTEXT.md),
@@ -66,8 +66,8 @@ Each domain specifies:
 ### 1. Install
 
 ```bash
-git clone https://github.com/sierra-research/tau2-bench
-cd tau2-bench
+git clone https://github.com/GawainTheCoder/tau2-bench-inspector.git
+cd tau2-bench-inspector
 uv sync                        # core only (text-mode: airline, retail, telecom, mock)
 ```
 
