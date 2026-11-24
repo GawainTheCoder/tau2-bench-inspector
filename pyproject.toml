@@ -63,7 +63,7 @@ gym = [
     "gymnasium>=1.2.2",
 ]
 dev = [
-    "pytest>=8.3.5",
+    "pytest>=9.0.3",
     "pytest-xdist>=3.5.0",
     "ruff>=0.9.1",
     "pre-commit>=4.0.0",
